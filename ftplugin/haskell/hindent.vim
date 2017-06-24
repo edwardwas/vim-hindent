@@ -23,14 +23,14 @@ function! hindent#Hindent()
         return
     endif
 
-    silent! silent exe "keepjumps !hindent < % > /dev/null 2>&1"
+    silent! silent exe "keepjumps !hindent -XRecursiveDo < % > /dev/null 2>&1"
     exe 'redraw!'
 
     if v:shell_error
         echomsg "Hindent: Parsing error"
     else
         silent! exe "undojoin"
-        silent! exe "keepjumps %!hindent" .
+        silent! exe "keepjumps %!hindent -XRecursiveDo" .
                     \ " --indent-size " . g:hindent_indent_size .
                     \ " --line-length " . g:hindent_line_length
     endif
